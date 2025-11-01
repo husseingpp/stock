@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stock Research Dashboard</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- jsPDF for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Stock Research Dashboard</h1>
+      <p class="subtitle">Enter a stock symbol to fetch key financial data and reports</p>
+    </header>
+
+    <main>
+      <section class="search-card">
+        <label for="symbol-input">Stock symbol</label>
+        <div class="input-row">
+          <input id="symbol-input" placeholder="e.g., AAPL, MSFT, TSLA" />
+          <button id="fetch-btn">Fetch Data</button>
+        </div>
+        <div class="actions">
+          <button id="download-pdf" class="secondary" disabled>Download PDF</button>
+          <button id="export-xlsx" class="secondary" disabled>Export Excel</button>
+          <button id="export-csv" class="secondary" disabled>Export CSV</button>
+        </div>
+        <div id="error" class="error" aria-live="polite"></div>
+      </section>
+
+      <section id="results" class="results hidden" aria-live="polite">
+        <div class="card summary">
+          <h2 id="company-name"></h2>
+          <div class="meta">
+            <div><strong>Symbol:</strong> <span id="symbol"></span></div>
+            <div><strong>Sector:</strong> <span id="sector"></span></div>
+            <div><strong>Market Cap:</strong> <span id="market-cap"></span></div>
+            <div><strong>P/E Ratio:</strong> <span id="pe-ratio"></span></div>
+          </div>
+
+          <div class="financials-grid">
+            <div class="metric">
+              <div class="label">Revenue (Latest)</div>
+              <div id="revenue-latest" class="value"></div>
+            </div>
+            <div class="metric">
+              <div class="label">Net Income (Latest)</div>
+              <div id="netincome-latest" class="value"></div>
+            </div>
+            <div class="metric">
+              <div class="label">Latest Annual Report</div>
+              <div id="annual-report-link" class="value"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <h3>Revenue (Last up to 5 years)</h3>
+          <canvas id="revenue-chart" height="120"></canvas>
+        </div>
+
+        <div class="card raw-card">
+          <h3>Details</h3>
+          <pre id="raw-info"></pre>
+        </div>
+      </section>
+
+      <aside class="recent-card">
+        <h3>Recent searches</h3>
+        <ul id="recent-list"></ul>
+      </aside>
+    </main>
+
+    <footer>
+      <small>Built with Flask + yfinance • For personal use only</small>
+    </footer>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
